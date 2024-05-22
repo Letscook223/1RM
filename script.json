@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1RM Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h3 {
+            color: #007bff;
+            text-align: center;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-group, .select-group {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .label {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .input, .select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .button {
+            width: calc(100% - 22px);
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .imageResult {
+            margin-top: 20px;
+            max-width: 100%;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>1RM Calculator</h1>
+        <h3>Unlock Your Strength Potential</h3>
+        <form id="1rmForm" class="form">
+            <div class="input-group">
+                <label for="weightInput" class="label">Weight (lb)</label>
+                <input type="number" name="weight(lb)" id="weightInput" class="input" placeholder="Enter weight" required step="any">
+            </div>
+            <div class="input-group">
+                <label for="repsInput" class="label">Reps</label>
+                <input type="number" name="reps" id="repsInput" class="input" placeholder="Number of reps" required>
+            </div>
+            <div class="select-group">
+                <label for="exerciseSelect" class="label">Select Exercise</label>
+                <select id="exerciseSelect" class="select" required>
+                    <option value="">Select Exercise</option>
+                    <option value="benchPress">Bench Press</option>
+                    <option value="squat">Squat</option>
+                    <option value="deadlift">Deadlift</option>
+                </select>
+            </div>
+            <div class="select-group">
+                <label for="genderSelect" class="label">Select Gender</label>
+                <select id="genderSelect" class="select" required>
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <button type="submit" class="button">Calculate</button>
+        </form>
+        <div id="result" class="result"></div>
+        <img id="imageResult" src="" alt="1RM Chart" class="imageResult">
+    </div>
+    <div class="footer">
+        Made with ❤️ by [Your Name]
+    </div>
+
+    <script>
+        document.getElementById('1rmForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var weight = parseFloat(document.getElementById('weightInput').value);
+            var reps = parseInt(document.getElementById('repsInput').value);
+            var gender = document.getElementById('genderSelect').value;
+            var exercise = document.getElementById('exerciseSelect').value;
+            var oneRepMax = weight * (1 + reps / 30);
+            document.getElementById('result').innerText = "Your One Rep Max is estimated to be: " + oneRepMax.toFixed(2) + " lb";
+            var imageUrl = "";
+            if (gender === 'male' && exercise === 'benchPress') {
+                imageUrl = "https://legionathletics.com/wp-content/uploads/2022/03/Male-Bench-Press-Standards.png";
+            } else if (gender === 'male' && exercise === 'squat') {
+                imageUrl = "https://legionathletics.com/wp-content/uploads/2022/03/Male-Squat-Standards.png";
+            } else if (gender === 'male' && exercise === 'deadlift') {
+                imageUrl = "https://legionathletics.com/wp-content/uploads/2022/03/Male-Deadlift-Standards.png";
+            } else if (gender === 'female' && exercise === 'benchPress') {
+                imageUrl = "https://legionathletics.com/wp-content/uploads/2022/03/Female-Bench-Press-Standards.png";
+            } else if (gender === 'female' && exercise === 'squat') {
+                imageUrl = "https://legionathletics.com/wp-content/uploads/2022/03/Female-Squat-Standards.png";
+            } else if (gender === 'female' && exercise === 'deadlift') {
+                imageUrl = "https://legionathletics.com/wp-content/uploads/2022/03/Female-Deadlift-Standards.png";
+            }
+            document.getElementById('imageResult').src = imageUrl;
+            document.getElementById('imageResult').style.display = "block";
+        });
+    </script>
+</body>
+</html>
+

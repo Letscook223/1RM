@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1RM calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff; /* White background for the container */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+        }
+        h1, h3 {
+            color: #080808;
+        }
+        .subtitle {
+            color: #666; /* Dark gray for subtitle */
+            margin-bottom: 20px;
+        }
+        .form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input[type="number"], button {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        #imageResult {
+            margin-top: 20px;
+            max-width: 100%;
+            border-radius: 10px;
+            display: block; /* Ensure the image is displayed as a block element */
+            margin: 0 auto; /* Center the image horizontally */
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
+    </style>
+</head>
+<body>
+    <h1>One Rep Max (1RM) Calculator</h1>
+    <h3> Discover your maximum lifting potential with our One Rep Max Calculator! Input your current lifting weight and reps, and we'll reveal your one rep max. Unlock your strength progressions now!</h3>
+    <form id="1rmForm">
+    <fieldset>
+        <input type="number" name="weight(lb)" id="weightInput" placeholder="Enter weight in lb" required step="any">
+        <input type="number" name="reps" id="repsInput" placeholder="Number of reps" required>
+        
+            <select id="exerciseSelect" required>
+                <option value="">Select Exercise</option>
+                <option value="benchPress">Bench Press</option>
+                <option value="squat">Squat</option>
+                <option value="deadlift">Deadlift</option>
+            </select>
+            <select id="genderSelect" required>
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                </select>
+    </fieldset>
+    <button type="submit">Calculate</button>
+</form>
+<div id="result"></div>
+<img id="imageResult" src="" alt="Image Result" style="display: none;"> <!-- Hidden by default -->
+<script>
+ document.getElementById('1rmForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+// Get user inputs
+            var weight = parseFloat(document.getElementById('weightInput').value);
+            var reps = parseInt(document.getElementById('repsInput').value);
+            var gender = document.getElementById('genderSelect').value; // Get the selected gender
+            var exercise = document.getElementById('exerciseSelect').value; // Get the selected exercise
+            var oneRepMax = weight * (1 + reps / 30);
+            document.getElementById('result').innerText = "Your One Rep Max is estimated to be: " + oneRepMax.toFixed(2) + " lb";
+            var imageUrl = "";
+    if (gender === 'male' && exercise === 'benchPress') {
+        imageUrl = "https://legionathletics.com/wp-content/uploads/2022/03/Male-Bench-Press-Standards.png";
+    } else if (gender === 'male' && exercise === 'squat') {
+        imageUrl = "https://legionathletics.com/wp-content/uploads/2022/03/Male-Squat-Standards.png";
+    } else if (gender === 'male' && exercise === 'deadlift') {
+        imageUrl = "https://legionathletics.com/wp-content/uploads/2022/03/Male-Deadlift-Standards.png";
+    } else if (gender === 'female' && exercise === 'benchPress') {
+        imageUrl = "https://legionathletics.com/wp-content/uploads/2022/03/Female-Bench-Press-Standards.png";
+    } else if (gender === 'female' && exercise === 'squat') {
+        imageUrl = "https://legionathletics.com/wp-content/uploads/2022/03/Female-Squat-Standards.png";
+    } else if (gender === 'female' && exercise === 'deadlift') {
+        imageUrl = "https://legionathletics.com/wp-content/uploads/2022/03/Female-Deadlift-Standards.png";
+    }
+
+
+
+ document.getElementById('imageResult').src = imageUrl;
+document.getElementById('imageResult').style.display = "block";
+ });
+
+</script>
+
+</body>
+</html>
